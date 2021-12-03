@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Netflix",
+    "created_date": "5/17/21",
+    "content": "This is a post about netflix",
+    "user_id": 2
+  },
+  {
+    "title": "State of the Union",
+    "created_date": "6/27/21",
+    "content": "This is a post about politics",
+    "user_id": 1
+  },
+  {
+    "title": "Grandmas Pudding",
+    "created_date": "8/12/21",
+    "content": "This is a post about pudding reciepe",
+    "user_id": 3
+  },
+  {
+    "title": "3 exercises in the fall",
+    "created_date": "5/17/21",
+    "content": "This is a post about new exercises",
+    "user_id": 1
+  },
+  {
+    "title": "How to train legs",
+    "created_date": "5/17/21",
+    "content": "This is a post about leg exercises",
+    "user_id": 2
+  }
+]

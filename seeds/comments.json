@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "commentBody": "This blog is awesome!",
+    "created_date": "5/17/21",
+    "user_id": 2,
+    "blog_id": 2
+  },
+  {
+    "id": 2,
+    "commentBody": "I really like this content",
+    "created_date": "7/17/21",
+    "user_id": 3,
+    "blog_id": 1
+  },
+  {
+    "id": 3,
+    "commentBody": "Great Article!",
+    "created_date": "4/23/21",
+    "user_id": 2,
+    "blog_id": 3
+  },
+  {
+    "id": 4,
+    "commentBody": "I think you have an opinionated view",
+    "created_date": "5/17/21",
+    "user_id": 4,
+    "blog_id": 5
+  },
+  {
+    "id": 5,
+    "commentBody": "I really want to know more about this topic",
+    "created_date": "5/17/21",
+    "user_id": 1,
+    "blog_id": 3
+  }
+]
