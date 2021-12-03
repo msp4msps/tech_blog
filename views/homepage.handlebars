@@ -3,13 +3,19 @@
 
 {{#each posts as |post|}}
 
-<div class="card text-white bg-info w-50 mx-auto border-secondary m-3 ">
+<div class="container mb-5">
+
+<div class="card text-left">
   <div class="card-body">
+    <div class="d-flex p-2 bd-highlight justify-content-between">
     <h5 class="card-title">{{post.title}}</h5>
     <p>Author: {{post.user.username}} Date: {{format_date post.created_date}}</p>
+    </div>
     <p class="card-text">{{post.content}}</p>
-    <a href="/{{id}}" class="btn btn-light">Read More...</a>
+    <a href="/{{id}}" class="btn btn-primary">View Post</a>
   </div>
+
+</div>
 </div>
 
 {{/each}}
