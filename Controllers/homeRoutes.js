@@ -17,9 +17,9 @@ router.get("/", async (req, res) => {
 
     res.render("homepage", {
       posts,
-      // username: req.session.username,
-      // user_id: req.session.user_id,
-      // loggedIn: req.session.loggedIn,
+      username: req.session.username,
+      user_id: req.session.user_id,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.status(500).json({
@@ -27,6 +27,17 @@ router.get("/", async (req, res) => {
       message: err,
     });
   }
+});
+
+// Login route
+router.get("/login", (req, res) => {
+  // If the user is already logged in, redirect to the homepage
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  // Otherwise, render the 'login' template
+  res.render("login");
 });
 
 module.exports = router;
