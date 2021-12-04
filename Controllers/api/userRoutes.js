@@ -1,9 +1,30 @@
 const router = require("express").Router();
 const { User } = require("../../models");
 
+// CREATE new user
+router.post("/", async (req, res) => {
+  try {
+    const dbUserData = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+    });
+
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+
+      res.json({ user: dbUserData, message: "You are now logged in!" });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+//Login User
 router.post("/login", async (req, res) => {
   try {
-    console.log("hello");
     // Find the user who matches the posted username
     const userData = await User.findOne({
       where: { username: req.body.username },
@@ -39,6 +60,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Logout User
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     // Remove the session variables

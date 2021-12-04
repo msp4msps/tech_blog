@@ -1,0 +1,142 @@
+<h2 class="text-center">Here are your blog post:</h2>
+
+<div class="container mb-5">
+  <div class="d-flex p-2 bd-highlight">
+    <div class="col-md-5 card">
+      <h3>Create a New Post:</h3>
+
+      <button
+        class="btn btn-sm btn-primary"
+        data-toggle="modal"
+        data-target="#CreateModal"
+        id="create"
+      >Create</button>
+    </div>
+  </div>
+</div>
+
+{{#if posts.blogPosts.length}}
+  <div class="blog-posts">
+
+    {{#each posts.blogPosts as |post|}}
+
+      <div class="container mb-5">
+
+        <div class="card text-left">
+          <div class="card-body">
+            <div class="d-flex p-2 bd-highlight justify-content-between">
+              <h5 class="card-title">{{post.title}}</h5>
+              <p>
+                Date:
+                {{format_date post.created_date}}</p>
+            </div>
+            <p class="card-text">{{post.content}}</p>
+            <button
+              class="btn btn-sm btn-primary"
+              data-update={{post.id}}
+              data-toggle="modal"
+              data-target="#updateModal"
+              id="first-update"
+            >Update</button>
+            <button
+              class="btn btn-sm btn-danger"
+              data-id="{{post.id}}"
+            >Delete</button>
+          </div>
+
+        </div>
+      </div>
+
+    {{/each}}
+  </div>
+{{/if}}
+
+<div
+  class="modal fade"
+  id="CreateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="CreateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CreateModalLabel">Create your post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="post-name" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="post-name" />
+          </div>
+          <div class="form-group">
+            <label for="post-content" class="col-form-label">Content:</label>
+            <textarea class="form-control" id="post-content"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="create-button"
+        >Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="updateModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update your post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="post1-name" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="post1-name" />
+          </div>
+          <div class="form-group">
+            <label for="post1-content" class="col-form-label">Content:</label>
+            <textarea class="form-control" id="post1-content"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="update-button"
+          data-put=""
+        >Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/blogPost.js"></script>
