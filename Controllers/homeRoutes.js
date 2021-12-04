@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const session = require("express-session");
+const withAuth = require("../utils/auth");
 const { BlogPost, User, Comments } = require("../models");
 
 //GET All Blog POST for Homepage
@@ -24,17 +24,45 @@ router.get("/", async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      status: "Fail",
+      status: "Failing",
       message: err,
     });
   }
 });
 
+//Dashboard Route
+router.get("/dashboard", withAuth, async (req, res) => {
+  console.log(req.session);
+  try {
+    const dbBlogData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ["password"] },
+      include: [{ model: BlogPost }],
+    });
+    const posts = dbBlogData.get({ plain: true });
+    res.render("dashboard", {
+      posts,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "Failed to get dashboard",
+      message: err,
+    });
+  }
+});
+
+// Login route
+router.get("/login", (req, res) => {
+  // If the user is already logged in, redirect to the homepage
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  // Otherwise, render the 'login' template
+  res.render("login");
+});
+
 router.get("/:id", async (req, res) => {
-  // if (!req.session.loggedIn) {
-  //   res.redirect("/login");
-  //   return;
-  // }
   try {
     const dbBlogData = await BlogPost.findByPk(req.params.id, {
       include: [
@@ -61,17 +89,6 @@ router.get("/:id", async (req, res) => {
       message: err,
     });
   }
-});
-
-// Login route
-router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect to the homepage
-  if (req.session.loggedIn) {
-    res.redirect("/");
-    return;
-  }
-  // Otherwise, render the 'login' template
-  res.render("login");
 });
 
 module.exports = router;
