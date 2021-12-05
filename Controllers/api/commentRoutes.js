@@ -18,4 +18,18 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const getPost = await Comments.findByPk(req.params.id, {});
+    const post = getPost.get({ plain: true });
+    console.log(post);
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({
+      status: "Fail",
+      message: "Could not grab post",
+    });
+  }
+});
+
 module.exports = router;

@@ -32,7 +32,6 @@ router.get("/", async (req, res) => {
 
 //Dashboard Route
 router.get("/dashboard", withAuth, async (req, res) => {
-  console.log(req.session);
   try {
     const dbBlogData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
@@ -68,7 +67,7 @@ router.get("/:id", async (req, res) => {
       include: [
         {
           model: Comments,
-          attributes: ["commentBody", "created_date"],
+          attributes: ["id", "commentBody", "created_date"],
           include: {
             model: User,
             attributes: ["username"],
