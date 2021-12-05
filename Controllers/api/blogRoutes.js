@@ -1,11 +1,13 @@
 const router = require("express").Router();
-const { User, BlogPost, Comment } = require("../../models");
+const { BlogPost } = require("../../models");
+const withAuth = require("../../utils/auth");
 
 router.get("/:id", async (req, res) => {
   try {
     const getPost = await BlogPost.findByPk(req.params.id, {});
     const post = getPost.get({ plain: true });
     req.session.post_id = post.id;
+    console.log(post);
     res.json(post);
   } catch (err) {
     res.status(500).json({
@@ -20,6 +22,7 @@ router.post("/", async (req, res) => {
     const newPost = await BlogPost.create({
       ...req.body,
       user_id: req.session.user_id,
+      created_date: new Date(),
     });
 
     res.status(201).json(newPost);
@@ -53,7 +56,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
   try {
     const deletePost = await BlogPost.destroy({
       where: {
@@ -69,7 +72,7 @@ router.delete("/:id", async (req, res) => {
       });
       return;
     }
-    res.status(201).json(deletePost);
+    res.status(200).json(deletePost);
   } catch (err) {
     res.status(500).json({
       status: "Fail",

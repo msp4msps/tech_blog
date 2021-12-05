@@ -79,6 +79,7 @@ router.get("/:id", async (req, res) => {
     });
     const post = dbBlogData.get({ plain: true });
     req.session.post_id = post.id;
+    console.log(post);
     res.render("blogPost", {
       post,
       loggedIn: req.session.loggedIn,

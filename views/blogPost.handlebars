@@ -22,23 +22,27 @@
 <div class="container card text-white bg-secondary mx-auto border-secondary m-3 ">
 
   <div class="card-body">
-    <h5 class="card-title">{{user.username}} on {{format_date created_date}}</h5>
-    <p class="card-text">{{commentBody}}</p>
+    <h5 class="card-title">{{user.username}} on {{created_date}}</h5>
+    <p class="card-text">{{post.commentBody}}</p>
   </div>
+  <div class="form-group">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+
 </div>
 {{/each}}
+  {{#if loggedIn}}
 
-{{#if loggedIn}}
 <div class="container card text-white bg-secondary mx-auto border-secondary m-3 ">
   <div class="col-md-6">
     <h3>Create New Comment:</h3>
 
-    <form class="form new-comment-form">
+    <form class="form new-comment-form" id="newComment">
       <div class="form-group">
         <textarea class="input-large" id="commentBody" name="commentBody"></textarea>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Post</button>
+        <button type="submit" class="btn btn-primary" id="create-comment">Post</button>
       </div>
     </form>
   </div>
@@ -51,3 +55,5 @@
     </button>
   </div>
 {{/if}}
+
+<script src="./js/comments.js"></script>
